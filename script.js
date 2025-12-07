@@ -5,6 +5,8 @@ const state = {
     rotationIntensity: 10,
     scaleFactor: 0.9,
     delayTime: 1.0,
+    timeDilation: 1.0,
+    antigravity: false,
     activeTerms: [
         "Superposition", "Entanglement", "Ψ Wave Function", "Tunneling",
         "Planck", "Heisenberg", "Qubit", "Schrödinger", "Decoherence"
@@ -23,6 +25,10 @@ const elements = {
     scaleValue: document.getElementById('scale-value'),
     delaySlider: document.getElementById('delay-time'),
     delayValue: document.getElementById('delay-value'),
+    timeDilationSlider: document.getElementById('time-dilation'),
+    timeDilationValue: document.getElementById('time-dilation-value'),
+    antigravityToggle: document.getElementById('antigravity-toggle'),
+    dispersalBtn: document.getElementById('dispersal-btn'),
     activateBtn: document.getElementById('activate-btn'),
     resetBtn: document.getElementById('reset-btn'),
     exportBtn: document.getElementById('export-btn'),
@@ -80,6 +86,36 @@ function setupEventListeners() {
     elements.delaySlider.addEventListener('input', (e) => {
         state.delayTime = parseFloat(e.target.value);
         elements.delayValue.textContent = `${state.delayTime.toFixed(1)}s`;
+    });
+
+    // Time Dilation slider
+    elements.timeDilationSlider.addEventListener('input', (e) => {
+        state.timeDilation = parseFloat(e.target.value);
+        elements.timeDilationValue.textContent = `${state.timeDilation.toFixed(1)}x`;
+
+        // Update physics engine if active
+        if (window.gravityHack && window.gravityHack.physicsEnabled) {
+            window.gravityHack.setTimeDilation(state.timeDilation);
+        }
+    });
+
+    // Antigravity toggle
+    elements.antigravityToggle.addEventListener('change', (e) => {
+        state.antigravity = e.target.checked;
+
+        // Update physics engine if active
+        if (window.gravityHack && window.gravityHack.physicsEnabled) {
+            window.gravityHack.toggleAntigravity(state.antigravity);
+        }
+    });
+
+    // Dispersal button
+    elements.dispersalBtn.addEventListener('click', () => {
+        if (window.gravityHack && window.gravityHack.physicsEnabled) {
+            window.gravityHack.activateDispersal();
+        } else {
+            showNotification('Activate Quantum Gravity first!', true);
+        }
     });
 
     // Chip toggles
@@ -159,65 +195,60 @@ function updateAllValues() {
     elements.rotationValue.textContent = `${state.rotationIntensity}°`;
     elements.scaleValue.textContent = state.scaleFactor.toFixed(2);
     elements.delayValue.textContent = `${state.delayTime.toFixed(1)}s`;
+    elements.timeDilationValue.textContent = `${state.timeDilation.toFixed(1)}x`;
 }
 
 // ===== QUANTUM GRAVITY ACTIVATION =====
 function activateQuantumGravity() {
-    updateStatus('Activating Quantum Field...', '#ffaa00');
+    updateStatus('Initializing Matter.js Physics Engine...', '#ffaa00');
 
-    // Get all elements in demo area
-    const demoElements = elements.demoContent.querySelectorAll('a, span, div, p, h1, h2, button');
+    // Check if gravity_hack.js is loaded
+    if (typeof activateGravity === 'undefined') {
+        showNotification('Error: gravity_hack.js not loaded!', true);
+        updateStatus('System Error', '#ff0000');
+        return;
+    }
 
-    // Phase 1: Inject Quantum Terminology
-    demoElements.forEach((el, index) => {
-        const probability = state.quantumProbability / 100;
+    // Prepare options for the physics engine
+    const options = {
+        quantumProbability: state.quantumProbability,
+        antigravity: state.antigravity,
+        timeDilation: state.timeDilation,
+        dispersal: false, // We'll trigger this separately via button
+        targetElement: elements.demoContent
+    };
 
-        if (el.innerText &&
-            el.innerText.trim().length > 0 &&
-            el.innerText.trim().length < 20 &&
-            Math.random() > (1 - probability) &&
-            state.activeTerms.length > 0) {
+    updateStatus('Converting DOM to Physics Bodies...', '#00d4ff');
 
-            const randomTerm = state.activeTerms[Math.floor(Math.random() * state.activeTerms.length)];
-            el.innerText = randomTerm;
-            el.style.color = "#00FF00";
-            el.style.fontFamily = "monospace";
-            el.style.textShadow = "0 0 10px #00FF00";
-        }
-    });
+    // Activate the gravity hack with current settings
+    try {
+        window.gravityHack = activateGravity(options);
 
-    // Phase 2: Apply Antigravity Physics
-    elements.demoContent.style.overflow = "hidden";
-    elements.demoContent.style.transition = `transform 3s cubic-bezier(0.25, 0.1, 0.25, 1)`;
-    elements.demoContent.style.transform = `rotate(${state.rotationIntensity}deg) scale(${state.scaleFactor})`;
-
-    // Phase 3: The Fall
-    setTimeout(() => {
         updateStatus('Quantum Gravity Active!', '#ff00ff');
 
-        demoElements.forEach(el => {
-            const randomSpeed = Math.random() * state.animationSpeed + (state.animationSpeed / 2);
-            el.style.transition = `all ${randomSpeed}s ease-in`;
-            el.style.transform = `translate(${Math.random() * 200 - 100}px, ${window.innerHeight}px) rotate(${Math.random() * 360}deg)`;
-            el.style.opacity = "0.8";
-        });
-
-        // Show completion message
+        // Show success notification
         setTimeout(() => {
-            updateStatus('Reality Collapsed', '#00ff88');
-            showNotification('Quantum Mechanics Core loaded successfully!');
-        }, state.animationSpeed * 1000);
+            showNotification('Reality manipulation engaged! Use controls to adjust physics.');
+        }, 1000);
 
-    }, state.delayTime * 1000);
+    } catch (error) {
+        console.error('Gravity activation error:', error);
+        showNotification('Failed to activate gravity: ' + error.message, true);
+        updateStatus('Activation Failed', '#ff0000');
+    }
 }
 
 // ===== RESET REALITY =====
 function resetReality() {
     updateStatus('Restoring Reality...', '#00d4ff');
 
-    // Reset demo content
-    const demoElements = elements.demoContent.querySelectorAll('a, span, div, p, h1, h2, button');
+    // Destroy physics engine if active
+    if (window.gravityHack && window.gravityHack.physicsEnabled) {
+        deactivateGravity();
+    }
 
+    // Reset demo content styles (in case of CSS-only mode)
+    const demoElements = elements.demoContent.querySelectorAll('a, span, div, p, h1, h2, button');
     demoElements.forEach(el => {
         el.style.transition = 'all 0.5s ease';
         el.style.transform = 'translate(0, 0) rotate(0deg)';
@@ -230,10 +261,15 @@ function resetReality() {
     elements.demoContent.style.transform = 'rotate(0deg) scale(1)';
     elements.demoContent.style.overflow = '';
 
+    // Reset antigravity toggle
+    elements.antigravityToggle.checked = false;
+    state.antigravity = false;
+
     setTimeout(() => {
         // Restore original content
         populateContent();
         updateStatus('System Ready', '#00ff88');
+        showNotification('Reality restored to normal state');
     }, 500);
 }
 

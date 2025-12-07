@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Gravity Hack Test Page</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            padding: 2rem;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            color: white;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        h1 {
+            font-size: 3rem;
+            text-align: center;
+            margin-bottom: 2rem;
+        }
+
+        .card {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            border-radius: 16px;
+            padding: 2rem;
+            margin: 1rem 0;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+        }
+
+        .button {
+            background: linear-gradient(135deg, #00ff88, #00d4ff);
+            color: #000;
+            padding: 1rem 2rem;
+            border: none;
+            border-radius: 8px;
+            font-size: 1.1rem;
+            font-weight: bold;
+            cursor: pointer;
+            margin: 0.5rem;
+            transition: transform 0.3s ease;
+        }
+
+        .button:hover {
+            transform: translateY(-2px);
+        }
+
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 1rem;
+            margin: 2rem 0;
+        }
+
+        img {
+            max-width: 200px;
+            border-radius: 8px;
+        }
+
+        .instructions {
+            background: rgba(0, 0, 0, 0.3);
+            padding: 1.5rem;
+            border-radius: 12px;
+            margin: 2rem 0;
+            border-left: 4px solid #00ff88;
+        }
+
+        .instructions h2 {
+            color: #00ff88;
+            margin-top: 0;
+        }
+
+        .instructions code {
+            background: rgba(0, 0, 0, 0.5);
+            padding: 0.2rem 0.5rem;
+            border-radius: 4px;
+            color: #00ff88;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="container">
+        <h1>🌌 Gravity Hack Test Page 🌌</h1>
+
+        <div class="instructions">
+            <h2>How to Activate</h2>
+            <p><strong>Press <code>Ctrl + Enter</code></strong> to activate the gravity hack!</p>
+            <p>Or open the browser console and type: <code>activateGravity()</code></p>
+            <p>All elements on this page will become physics objects that fall, bounce, and collide!</p>
+        </div>
+
+        <div class="card">
+            <h2>Welcome to the Quantum Realm</h2>
+            <p>This is a test page to demonstrate the Matter.js-based gravity hack. Every element you see here - text,
+                buttons, cards, images - will be converted into physics bodies when you activate the effect.</p>
+            <button class="button">Click Me!</button>
+            <button class="button">I'm Interactive</button>
+            <button class="button">Watch Me Fall</button>
+        </div>
+
+        <div class="grid">
+            <div class="card">
+                <h3>Quantum Mechanics</h3>
+                <p>The study of matter and energy at the molecular, atomic, nuclear, and even smaller microscopic
+                    levels.</p>
+                <span style="color: #00ff88;">⚛️ Superposition</span>
+            </div>
+
+            <div class="card">
+                <h3>General Relativity</h3>
+                <p>Einstein's theory of gravitation describing gravity as a geometric property of space and time.</p>
+                <span style="color: #00d4ff;">🌌 Spacetime</span>
+            </div>
+
+            <div class="card">
+                <h3>String Theory</h3>
+                <p>A theoretical framework in which point-like particles are replaced by one-dimensional strings.</p>
+                <span style="color: #ff00ff;">🎻 Vibrations</span>
+            </div>
+        </div>
+
+        <div class="card">
+            <h2>Physics Parameters</h2>
+            <p>You can customize the gravity hack with these options:</p>
+            <ul>
+                <li><strong>Quantum Probability</strong>: 0-100% (controls randomness/jitter)</li>
+                <li><strong>Antigravity</strong>: true/false (invert gravity direction)</li>
+                <li><strong>Time Dilation</strong>: 0.5-5.0 (slow motion effect)</li>
+                <li><strong>Dispersal</strong>: true/false (explosive radial force)</li>
+            </ul>
+        </div>
+
+        <div class="card">
+            <h2>Example Code</h2>
+            <pre style="background: rgba(0,0,0,0.5); padding: 1rem; border-radius: 8px; overflow-x: auto;">
+<code>// Activate with custom settings
+activateGravity({
+    quantumProbability: 50,
+    antigravity: false,
+    timeDilation: 1.0,
+    dispersal: true
+});
+
+// Deactivate
+deactivateGravity();</code>
+            </pre>
+        </div>
+
+        <div style="text-align: center; margin: 3rem 0;">
+            <h2>Ready to break reality?</h2>
+            <p style="font-size: 1.2rem;">Press <strong>Ctrl + Enter</strong> now!</p>
+            <div style="font-size: 3rem; margin: 1rem 0;">
+                ⚛️ 🌌 🔬 🌊 ⚡
+            </div>
+        </div>
+
+        <div class="card">
+            <h3>Links to Explore</h3>
+            <a href="#physics" style="color: #00ff88; margin-right: 1rem;">Physics</a>
+            <a href="#quantum" style="color: #00d4ff; margin-right: 1rem;">Quantum</a>
+            <a href="#relativity" style="color: #ff00ff; margin-right: 1rem;">Relativity</a>
+            <a href="#cosmology" style="color: #ffaa00;">Cosmology</a>
+        </div>
+    </div>
+
+    <!-- Matter.js Physics Engine -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/matter-js/0.19.0/matter.min.js"></script>
+
+    <!-- Gravity Hack -->
+    <script src="gravity_hack.js"></script>
+
+    <script>
+        // Log instructions to console
+        console.log('%c🚀 GRAVITY HACK LOADED', 'color: #00ff88; font-size: 20px; font-weight: bold;');
+        console.log('%cPress Ctrl+Enter to activate!', 'color: #00d4ff; font-size: 14px;');
+        console.log('%cOr type: activateGravity()', 'color: #fff; font-size: 12px;');
+    </script>
+</body>
+
+</html>

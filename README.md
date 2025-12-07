@@ -1,150 +1,289 @@
-# Quantum Gravity Control Panel
+# Quantum Gravity Control Panel 🚀⚛️
 
-**A merged implementation combining quantum-mechanics-core and gravity_hack.js repositories**
+A powerful web-based reality manipulation interface that merges **quantum mechanics visualizations** with **Google Antigravity-style browser physics** using Matter.js.
 
-## 🌌 Overview
+## 🌟 Features
 
-This interactive web application merges two powerful concepts:
-- **Quantum Mechanics Visualizations** from `quantum-mechanics-core` (Python → JavaScript conversion)
-- **Gravity Hack Effects** from `gravity_hack.js` (Enhanced and parameterized)
+### Core Physics Engine (`gravity_hack.js`)
+- **Matter.js Integration**: Real physics simulation with collision detection, gravity, and forces
+- **DOM to Physics Conversion**: Automatically converts HTML elements into physics bodies
+- **Smart Rendering**: Preserves text and images in physics bodies
+- **Interactive**: Drag and throw elements with mouse
 
-The result is a stunning, premium control panel that lets you manipulate reality through quantum physics and gravity effects.
+### Quantum Controls
+1. **Quantum Probability (0-100%)**: Controls randomness/jitter in physics
+   - At 0%: Normal physics behavior
+   - At 100%: Maximum chaos with random forces applied to all bodies
 
-## ✨ Features
+2. **Antigravity Toggle**: Inverts gravity direction
+   - OFF: Elements fall down (normal gravity)
+   - ON: Elements float upward (inverted gravity)
 
-### 1. **Quantum Gravity Effects**
-- Inject quantum terminology into any webpage
-- Apply antigravity physics transformations
-- Animated element dispersal with customizable parameters
-- Real-time parameter adjustment
+3. **Time Dilation (0.5x - 5.0x)**: Adjust simulation speed
+   - 0.5x: Slow motion (half speed)
+   - 1.0x: Normal time
+   - 5.0x: Fast forward (5x speed)
 
-### 2. **Quantum Mechanics Visualizations**
-Converted from Python (matplotlib) to JavaScript (Canvas API):
-- **Double Slit Interference**: Wave function superposition
-- **Particle in a Box**: Quantum energy levels
-- **Bloch Sphere**: Qubit superposition states
-- **Quantum Tunneling**: Wave packet barrier penetration
+4. **Dispersal Effect**: Explosive radial force from screen center
+   - Scatters all physics bodies outward
+   - Adds random spin to each element
 
-### 3. **Interactive Controls**
-- Quantum Probability (0-100%)
-- Animation Speed (0.5-5s)
-- Rotation Intensity (0-360°)
-- Scale Factor (0.5-1.5x)
-- Activation Delay (0-5s)
-- Toggleable quantum terms
+5. **Rotation Intensity (0-360°)**: Initial body rotation
+6. **Scale Factor (0.5-1.5)**: Initial body size
+7. **Activation Delay (0-5s)**: Time before physics activates
 
-### 4. **Code Export**
-- Generate standalone JavaScript code
-- Copy to clipboard
-- Use on any webpage via browser console
-
-## 🚀 Quick Start
-
-1. Open `index.html` in a modern web browser
-2. Adjust parameters using the control panel
-3. Click "Activate Quantum Gravity" to see the effect
-4. Switch between quantum visualizations
-5. Export code to use on other websites
+### Quantum Mechanics Visualizations
+- **Double Slit Experiment**: Wave-particle duality
+- **Particle in a Box**: Quantum confinement
+- **Bloch Sphere**: Qubit state representation
+- **Quantum Tunneling**: Barrier penetration
 
 ## 🎮 Keyboard Shortcuts
 
-- **Ctrl/Cmd + Enter**: Activate Quantum Gravity
-- **Ctrl/Cmd + R**: Reset Reality
-- **Ctrl/Cmd + E**: Export Code
-- **Escape**: Close Modal
+| Shortcut | Action |
+|----------|--------|
+| `Ctrl + Enter` | Toggle Quantum Gravity |
+| `Ctrl + R` | Reset Reality |
+| `Ctrl + E` | Export Code |
+| `Escape` | Close Modal |
 
-## 📁 Project Structure
+## 🔧 Technical Architecture
 
+### File Structure
 ```
-quantum-gravity-panel/
-├── index.html                  # Main HTML structure
-├── styles.css                  # Premium quantum-themed styles
-├── script.js                   # Main application logic
-├── quantum-visualizations.js   # Quantum physics simulations
-├── README.md                   # This file
-├── quantum-mechanics-core/     # Original Python repo (cloned)
-└── gravity_hack.js/            # Original gravity hack repo (cloned)
+quantum-mechanics-core/
+├── index.html                    # Main HTML structure
+├── styles.css                    # Glassmorphism UI styles
+├── script.js                     # Control panel logic
+├── gravity_hack.js              # Matter.js physics engine ⭐
+├── quantum-visualizations.js    # Canvas-based quantum simulations
+└── README.md                    # This file
 ```
 
-## 🔬 Quantum Visualizations
+### How DOM-to-Physics Conversion Works
 
-### Double Slit Interference
-Demonstrates wave-particle duality through interference patterns created by quantum superposition.
+#### 1. **Element Detection**
+```javascript
+const selector = 'a, span, div, p, h1, h2, h3, button, img, li, td, th';
+const elements = document.querySelectorAll(selector);
+```
 
-### Particle in a Box
-Shows quantized energy levels of a particle confined in an infinite potential well.
+#### 2. **Bounding Box Measurement**
+```javascript
+const rect = el.getBoundingClientRect();
+const x = rect.left + rect.width / 2;
+const y = rect.top + rect.height / 2;
+```
 
-### Bloch Sphere
-Visualizes qubit states in quantum computing, showing superposition of |0⟩ and |1⟩ states.
+#### 3. **Physics Body Creation**
+```javascript
+const body = Bodies.rectangle(x, y, width, height, {
+    restitution: 0.6,  // Bounciness
+    friction: 0.1,
+    density: 0.001
+});
+```
 
-### Quantum Tunneling
-Illustrates how quantum particles can penetrate classical barriers through wave function overlap.
+#### 4. **Visual Data Storage**
+The original element's appearance is captured:
 
-## 🎨 Design Philosophy
+**For TEXT elements:**
+```javascript
+body.elementData = {
+    type: 'text',
+    text: el.innerText,
+    color: computedStyle.color,
+    fontSize: computedStyle.fontSize,
+    fontFamily: computedStyle.fontFamily
+};
+```
 
-- **Premium Aesthetics**: Glassmorphism, gradients, and smooth animations
-- **Quantum Theme**: Cyan/green color palette inspired by quantum mechanics
-- **Responsive**: Works on desktop, tablet, and mobile devices
-- **Interactive**: Real-time parameter adjustment and visual feedback
+**For IMAGE elements:**
+```javascript
+body.elementData = {
+    type: 'image',
+    imageSrc: el.src,
+    image: el  // Reference for canvas drawImage
+};
+```
 
-## 🔧 Technologies
+#### 5. **Custom Rendering**
+After Matter.js updates physics, we render each body:
 
-- **HTML5**: Semantic structure
-- **CSS3**: Advanced styling with custom properties
-- **JavaScript (ES6+)**: Modern syntax and features
-- **Canvas API**: High-performance 2D graphics
-- **Google Fonts**: Orbitron (display) and Inter (body)
+```javascript
+// TEXT RENDERING
+ctx.fillStyle = data.color;
+ctx.font = `${data.fontWeight} ${data.fontSize} ${data.fontFamily}`;
+ctx.fillText(data.text, 0, 0);
 
-## 📊 Repository Merge Details
+// IMAGE RENDERING
+ctx.drawImage(data.image, -width/2, -height/2, width, height);
+```
 
-### From `quantum-mechanics-core`:
-- ✅ Double slit interference simulation
-- ✅ Particle in a box visualization
-- ✅ Bloch sphere (qubit) representation
-- ✅ Converted from Python/matplotlib to JavaScript/Canvas
+### Quantum Effects Implementation
 
-### From `gravity_hack.js`:
-- ✅ Text replacement with quantum terms
-- ✅ Antigravity physics effects
-- ✅ Element animation and dispersal
-- ✅ Enhanced with full parameter control
+#### Quantum Probability (Jitter)
+Applied on every physics update:
+```javascript
+applyQuantumEffects() {
+    const jitterStrength = this.quantumProbability / 100;
+    
+    this.physicsBodies.forEach(body => {
+        if (Math.random() < jitterStrength) {
+            const forceX = (Math.random() - 0.5) * 0.001 * jitterStrength;
+            const forceY = (Math.random() - 0.5) * 0.001 * jitterStrength;
+            Body.applyForce(body, body.position, { x: forceX, y: forceY });
+        }
+    });
+}
+```
 
-### New Features:
-- ✅ Interactive control panel
-- ✅ Real-time parameter adjustment
-- ✅ Code export functionality
-- ✅ Keyboard shortcuts
-- ✅ Responsive design
-- ✅ Premium UI/UX
+#### Antigravity Toggle
+```javascript
+toggleAntigravity(enabled) {
+    this.engine.world.gravity.y = enabled ? -1 : 1;
+}
+```
 
-## 🌟 Use Cases
+#### Time Dilation
+```javascript
+setTimeDilation(speed) {
+    this.engine.timing.timeScale = speed; // 0.5 to 5.0
+}
+```
 
-1. **Educational**: Learn quantum mechanics through interactive visualizations
-2. **Entertainment**: Apply gravity effects to any webpage
-3. **Development**: Export code for integration into other projects
-4. **Experimentation**: Explore quantum physics concepts visually
+#### Dispersal Effect
+```javascript
+activateDispersal() {
+    const centerX = window.innerWidth / 2;
+    const centerY = window.innerHeight / 2;
+    
+    this.physicsBodies.forEach(body => {
+        const dx = body.position.x - centerX;
+        const dy = body.position.y - centerY;
+        const distance = Math.sqrt(dx * dx + dy * dy) || 1;
+        
+        const forceX = (dx / distance) * 0.1;
+        const forceY = (dy / distance) * 0.1;
+        
+        Body.applyForce(body, body.position, { x: forceX, y: forceY });
+    });
+}
+```
 
-## 📝 License
+## 🎨 Design System
 
-This project merges two repositories:
-- `quantum-mechanics-core` by todalavibra
-- `gravity_hack.js` by todalavibra
+### Color Palette (Quantum Theme)
+- **Primary**: `#00ff88` (Quantum Green)
+- **Secondary**: `#00d4ff` (Quantum Cyan)
+- **Accent**: `#ff00ff` (Quantum Magenta)
+- **Warning**: `#ffaa00` (Quantum Orange)
 
-## 🤝 Contributing
+### Glassmorphism Effects
+```css
+background: rgba(21, 25, 50, 0.7);
+backdrop-filter: blur(10px);
+border: 1px solid rgba(0, 255, 136, 0.2);
+box-shadow: 0 8px 32px rgba(0, 0, 0, 0.4);
+```
 
-This is a merged demonstration project. For contributions to the original repositories, please visit:
-- https://github.com/todalavibra/quantum-mechanics-core
-- https://github.com/todalavibra/gravity_hack.js
+## 🚀 Usage
+
+### Basic Activation
+1. Open `index.html` in a modern browser
+2. Adjust quantum parameters in the control panel
+3. Click "Activate Quantum Gravity" or press `Ctrl+Enter`
+4. Watch as reality collapses into physics simulation!
+
+### Advanced Usage
+
+#### Export for Any Website
+1. Configure your desired parameters
+2. Click "Export Code"
+3. Copy the generated JavaScript
+4. Paste into browser console on any webpage
+5. Watch the magic happen!
+
+#### Real-time Control
+While physics is active:
+- Adjust **Time Dilation** slider → Changes simulation speed instantly
+- Toggle **Antigravity** → Inverts gravity direction
+- Click **Dispersal** → Explodes all elements from center
+- Drag elements with mouse to throw them around
+
+## 🔬 Physics Parameters Explained
+
+### Restitution (Bounciness)
+```javascript
+restitution: 0.6  // 0 = no bounce, 1 = perfect bounce
+```
+
+### Friction
+```javascript
+friction: 0.1  // How much elements slow down when sliding
+```
+
+### Density
+```javascript
+density: 0.001  // Mass per unit area (lighter = floatier)
+```
+
+### Gravity Scale
+```javascript
+gravity: {
+    x: 0,
+    y: 1,  // or -1 for antigravity
+    scale: 0.001  // Strength multiplier
+}
+```
+
+## 🐛 Troubleshooting
+
+### Physics Not Activating
+- Check browser console for errors
+- Ensure Matter.js CDN is loaded
+- Verify `gravity_hack.js` is included before `script.js`
+
+### Elements Not Visible
+- Check if elements are too small (min 5x5 pixels)
+- Verify elements aren't hidden by CSS
+- Look for elements outside viewport
+
+### Performance Issues
+- Reduce number of elements on page
+- Lower quantum probability (less jitter = better performance)
+- Disable dispersal effect
+- Use normal time dilation (1.0x)
+
+## 📚 Dependencies
+
+- **Matter.js** v0.19.0 - Physics engine
+- **Google Fonts** - Orbitron & Inter typefaces
+- **Modern Browser** - Chrome, Firefox, Edge, Safari (ES6+ support)
 
 ## 🎯 Future Enhancements
 
-- [ ] Animated quantum tunneling visualization
-- [ ] More quantum phenomena (entanglement, decoherence)
-- [ ] Save/load parameter presets
-- [ ] Browser extension version
-- [ ] WebGL 3D visualizations
-- [ ] Real-time quantum state manipulation
+- [ ] Multiple gravity wells (attract to mouse)
+- [ ] Quantum entanglement (link element pairs)
+- [ ] Wave function collapse animation
+- [ ] Superposition state (elements in multiple positions)
+- [ ] Custom element selection (choose what to convert)
+- [ ] Save/load presets
+- [ ] Mobile touch controls
+- [ ] VR/AR integration
+
+## 📄 License
+
+MIT License - Feel free to use, modify, and distribute!
+
+## 🙏 Credits
+
+- **Matter.js** by Liam Brummitt
+- **Google Antigravity** concept inspiration
+- **Quantum Mechanics** visualizations based on standard physics simulations
 
 ---
 
-**Built with ⚛️ by merging quantum mechanics and gravity manipulation**
+**Built with ⚛️ by a Creative Technologist who believes reality is just a suggestion.**
+
+*"Any sufficiently advanced technology is indistinguishable from magic." - Arthur C. Clarke*
