@@ -276,14 +276,3 @@ gravity: {
 
 MIT License - Feel free to use, modify, and distribute!
 
-## 🙏 Credits
-
-- **Matter.js** by Liam Brummitt
-- **Google Antigravity** concept inspiration
-- **Quantum Mechanics** visualizations based on standard physics simulations
-
----
-
-**Built with ⚛️ by a Creative Technologist who believes reality is just a suggestion.**
-
-*"Any sufficiently advanced technology is indistinguishable from magic." - Arthur C. Clarke*
